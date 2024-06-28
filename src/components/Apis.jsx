@@ -18,4 +18,4 @@ const getItems = async ({
   }
 };
 
-export { getItems };
+export default getItems;

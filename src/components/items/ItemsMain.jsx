@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getItems } from "../../components/apis.jsx";
+import getItems from "../apis";
 
 import BestItems from "./BestItems";
 import SellingItems from "./SellingItems";
