@@ -1,4 +1,5 @@
-const BASE_URL = "https://panda-market-api.vercel.app";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const getItems = async ({
   page = 1,
   pageSize = 10,
