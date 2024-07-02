@@ -1,7 +1,4 @@
-import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
-
-import HeaderNav from "../components/reusable/HeaderNav";
 import ItemsMain from "../components/items/ItemsMain";
 
 function Items() {
@@ -22,18 +19,6 @@ function Items() {
     }
   };
 
-  // let timer
-  // const onResize = () => {
-  //   if (timer) {
-  //     clearTimeout(timer);
-  //   }
-
-  //   timer = setTimeout(() => {
-  //     sizeNaming();
-  //   }, 200);
-  // };
-  // 디바운싱
-
   let timer = false;
   const onResize = () => {
     if (!timer) {
@@ -41,7 +26,7 @@ function Items() {
       sizeNaming();
       setTimeout(() => {
         timer = false;
-      }, 100);
+      }, 50);
     }
   };
 
@@ -53,7 +38,6 @@ function Items() {
   }, []);
   return (
     <>
-      <HeaderNav nowPath="items" />
       <ItemsMain sizeName={sizeName} />
     </>
   );
