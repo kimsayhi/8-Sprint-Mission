@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Auth, Home, Items, Login, Signup } from "#pages";
-import { Header } from "#components";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Auth, Home, Items, Login, Signup } from '#pages'
+import Header from '#/components/layout/Header'
 
 export default function Router() {
   return (
@@ -18,5 +18,5 @@ export default function Router() {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }

@@ -8,6 +8,12 @@ function usePageSize() {
         ? "medium"
         : "small",
   );
+  const showItemNum =
+    sizeName === "large"
+      ? { best: 4, selling: 10 }
+      : sizeName === "medium"
+        ? { best: 2, selling: 6 }
+        : { best: 1, selling: 4 };
   const sizeNaming = () => {
     if (window.innerWidth >= 1200) {
       setSizeName("large");
@@ -35,7 +41,7 @@ function usePageSize() {
       window.removeEventListener("resize", onResize);
     };
   }, []);
-  return sizeName;
+  return { sizeName, showItemNum };
 }
 
 export default usePageSize;

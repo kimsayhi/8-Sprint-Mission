@@ -1,119 +1,63 @@
+import { useEffect, useState } from "react";
+
+import { INITIAL_QUERY } from "#/constants/hooks";
+import { Item, Query } from "#/interfaces";
 import { getItemList } from "#/apis/getItemList";
-import { useEffect, useReducer } from "react";
-
-interface List {
-  id: number;
-  name: string;
-  images: string[];
-  description: string;
-  price: number;
-  tags: string[];
-  ownerId: number;
-  updateAt: string;
-}
-
-interface Data {
-  itemList: any[] | List[];
-  totalCount: number;
-}
-
-interface Query {
-  page: number;
-  pageSize: number;
-  orderBy: string;
-  keyword: string | null;
-}
-
-interface State {
-  data: Data;
-  query: Query;
-  loading: boolean;
-  error: unknown;
-}
-
-const INITIAL_STATE: State = {
-  query: {
-    page: 1,
-    pageSize: 10,
-    orderBy: "recent",
-    keyword: "",
-  },
-  data: {
-    itemList: [],
-    totalCount: 0,
-  },
-  loading: false,
-  error: null,
-};
-
-interface Action {
-  type: string;
-  payload?: any;
-}
-
-const reducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case "SET_QUERY":
-      return {
-        ...state,
-        query: { ...state.query, ...action.payload },
-      };
-    case "FETCH_DATA_REQUEST":
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case "FETCH_DATA_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        data: {
-          itemList: action.payload.isClear
-            ? [...action.payload.data.list]
-            : [...state.data.itemList, ...action.payload.data.list],
-          totalCount: action.payload.totalCount,
-        },
-      };
-    case "FETCH_DATA_FAIL":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error,
-      };
-    default:
-      return state;
-  }
-};
+import usePageSize from "./usePageSize";
 
 const useItems = () => {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const loadItemList = async (
-    { page, pageSize, orderBy, keyword }: Query,
-    isClear?: boolean,
-  ) => {
-    if (state.loading) {
-      return;
-    }
-    dispatch({ type: "FETCH_DATA_REQUEST" });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [query, setQuery] = useState<Query>(INITIAL_QUERY);
+  const [bestItems, setBestItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [totalCount, setTotalCount] = useState<number>(0);
+
+  const { showItemNum } = usePageSize();
+
+  const loadItems = async (reset?: boolean) => {
+    console.log("패치");
+    setIsLoading(true);
     try {
-      const data = await getItemList({ page, pageSize, orderBy, keyword });
-      dispatch({ type: "FETCH_DATA_SUCCESS", payload: { data, isClear } });
-      return data.list;
-    } catch (error) {
-      // dispatch({
-      //   type: "FETCH_DATA_FAILURE",
-      //   payload: { error: error.message },
-      // });
-    }
-  };
-  const changeQuery = (newQuery: Partial<Query>) => {
-    dispatch({ type: "SET_QUERY", payload: newQuery });
+      const resultData = await getItemList(query);
+      if (reset) {
+        setItems(resultData.list);
+      } else {
+        setItems((prev) => [...prev, ...resultData.list]);
+      }
+      setTotalCount(resultData.totalCount);
+      setIsLoading(false);
+    } catch (err) {}
   };
   useEffect(() => {
-    loadItemList(state.query, true);
-  }, [state.query.keyword]);
-  return { state, loadItemList, changeQuery };
-};
+    const loadBestItems = async () => {
+      setIsLoading(true);
+      try {
+        const resultData = await getItemList({
+          page: 1,
+          pageSize: 4,
+          orderBy: "favorite",
+        });
+        setBestItems(resultData.list);
+        setIsLoading(false);
+      } catch (err) {}
+    };
+    loadBestItems();
 
+    setQuery((prev) => ({
+      ...prev,
+      orderBy: "recent",
+      pageSize: showItemNum.selling,
+    }));
+  }, []);
+
+  useEffect(() => {
+    loadItems(true);
+  }, [query.orderBy]);
+
+  useEffect(() => {
+    loadItems(true);
+  }, [query.page, showItemNum.selling]);
+
+  return { items, totalCount, setQuery, isLoading, bestItems, showItemNum };
+};
 export default useItems;

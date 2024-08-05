@@ -5,8 +5,7 @@ interface InputProps {
   type: string;
   placeholder: string;
   name: string;
-  value: string;
-  onChange: (name: string, value: string) => void;
+  value?: string;
 }
 
 export default function Input({
@@ -15,7 +14,6 @@ export default function Input({
   type,
   label,
   value,
-  onChange,
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,9 +29,6 @@ export default function Input({
         name={name}
         id={name}
         value={value}
-        onChange={() => {
-          onChange(name, inputRef.current!.value);
-        }}
         ref={inputRef}
       ></input>
     </div>
