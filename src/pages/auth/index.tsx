@@ -1,35 +1,35 @@
-import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
-import logoImg from "#assets/images/logo.svg";
-import logoText from "#assets/images/logo-txt.svg";
-import icKakao from "#assets/icons/kakao-icon.png";
-import icGoogle from "#assets/icons/google-icon.png";
+import logoImg from '#assets/images/logo.svg'
+import logoText from '#assets/images/logo-txt.svg'
+import icKakao from '#assets/icons/kakao-icon.png'
+import icGoogle from '#assets/icons/google-icon.png'
 
 const INITIAL_TEXT = {
   login: {
-    msg: "판다마켓이 처음이신가요?",
-    link: "회원가입",
+    msg: '판다마켓이 처음이신가요?',
+    link: '회원가입',
   },
   signup: {
-    msg: "이미 회원이신가요?",
-    link: "로그인",
+    msg: '이미 회원이신가요?',
+    link: '로그인',
   },
-} as const;
+} as const
 
-type PathKey = "login" | "signup";
+type PathKey = 'login' | 'signup'
 
 export default function Auth() {
-  const [nowPathname, setNowPathName] = useState<PathKey>("login");
-  const { pathname } = useLocation();
+  const [nowPathname, setNowPathName] = useState<PathKey>('login')
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    if (pathname.includes("login")) {
-      setNowPathName("login");
+    if (pathname.includes('login')) {
+      setNowPathName('login')
     } else {
-      setNowPathName("signup");
+      setNowPathName('signup')
     }
-  }, [pathname]);
+  }, [pathname])
 
   return (
     <div className="mx-auto mt-20 max-w-2xl px-4 md:mt-48 md:px-5 lg:mt-56">
@@ -52,12 +52,12 @@ export default function Auth() {
       <p className="flex-center gap-1 pt-6 text-sm font-medium">
         {INITIAL_TEXT[nowPathname].msg}
         <Link
-          to={nowPathname === "login" ? "/auth/signup" : "/auth/login"}
+          to={nowPathname === 'login' ? '/auth/signup' : '/auth/login'}
           className="text-my-blue underline"
         >
           {INITIAL_TEXT[nowPathname].link}
         </Link>
       </p>
     </div>
-  );
+  )
 }

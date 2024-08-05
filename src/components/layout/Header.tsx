@@ -1,11 +1,11 @@
-import logoImg from "#assets/images/logo.svg";
-import logoText from "#assets/images/logo-txt.svg";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import logoImg from '#assets/images/logo.svg'
+import logoText from '#assets/images/logo-txt.svg'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 
 export default function Header() {
-  const { pathname } = useLocation();
-  const showHeader: boolean = !pathname.includes("auth");
-  const showLoginBtn: boolean = !pathname.includes("items");
+  const { pathname } = useLocation()
+  const showHeader: boolean = !pathname.includes('auth')
+  const showLoginBtn: boolean = !pathname.includes('items')
   return (
     <>
       {showHeader && (
@@ -15,7 +15,7 @@ export default function Header() {
               <img src={logoImg} className="hidden md:block" />
               <img src={logoText} />
             </Link>
-            {pathname.includes("items") && (
+            {pathname.includes('items') && (
               <div className="grow font-bold">
                 <NavLink to="forum" className="px-1 md:px-4">
                   자유게시판
@@ -42,5 +42,5 @@ export default function Header() {
       )}
       <Outlet />
     </>
-  );
+  )
 }

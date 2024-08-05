@@ -1,7 +1,7 @@
-import { Query } from "#/interfaces";
+import { Query } from '#/interfaces'
 export const INITIAL_QUERY: Query = {
   page: 1,
   pageSize: 10,
-  orderBy: "recent",
+  orderBy: 'recent',
   keyword: null,
-};
+}

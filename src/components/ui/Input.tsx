@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import { useRef } from 'react'
 
 interface InputProps {
-  label: string;
-  type: string;
-  placeholder: string;
-  name: string;
-  value?: string;
+  label: string
+  type: string
+  placeholder: string
+  name: string
+  value?: string
 }
 
 export default function Input({
@@ -15,7 +15,7 @@ export default function Input({
   label,
   value,
 }: InputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
   return (
     <div className="flex flex-col pb-6">
@@ -32,5 +32,5 @@ export default function Input({
         ref={inputRef}
       ></input>
     </div>
-  );
+  )
 }

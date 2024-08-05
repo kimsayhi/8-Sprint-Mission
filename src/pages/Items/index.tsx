@@ -1,27 +1,27 @@
-import useItems from "#/hooks/useItems";
-import { BestItemList, PageNavigator, SellingItemList } from "#pages";
-import { pageCalculator } from "#/utils";
-import { useEffect, useState } from "react";
+import useItems from '#/hooks/useItems'
+import { BestItemList, PageNavigator, SellingItemList } from '#pages'
+import { pageCalculator } from '#/utils'
+import { useEffect, useState } from 'react'
 
 export default function Items() {
-  const [pageNavNum, setPageNavNum] = useState<number>(0);
+  const [pageNavNum, setPageNavNum] = useState<number>(0)
 
   const { items, totalCount, setQuery, isLoading, bestItems, showItemNum } =
-    useItems();
+    useItems()
 
   const onClickPageNum = (pageNum: number) => {
-    setQuery((prev) => {
+    setQuery(prev => {
       if (prev.page === pageNum) {
-        return prev;
+        return prev
       }
-      return { ...prev, page: pageNum };
-    });
-  };
+      return { ...prev, page: pageNum }
+    })
+  }
 
   useEffect(() => {
-    const num = pageCalculator(totalCount, showItemNum.selling);
-    setPageNavNum(num);
-  }, [showItemNum.selling, totalCount]);
+    const num = pageCalculator(totalCount, showItemNum.selling)
+    setPageNavNum(num)
+  }, [showItemNum.selling, totalCount])
 
   return (
     <div className="flex-center m-container flex-col gap-6 pt-[70px]">
@@ -36,5 +36,5 @@ export default function Items() {
         setQuery={setQuery}
       />
     </div>
-  );
+  )
 }

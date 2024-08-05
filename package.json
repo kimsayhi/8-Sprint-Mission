@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "postinstall": "husky install",
     "prepare": "husky && husky install",
-    "husky": "husky install"
+    "husky": "husky install",
+    "format": "prettier --cache --write ."
   },
   "dependencies": {
     "react": "^18.3.1",

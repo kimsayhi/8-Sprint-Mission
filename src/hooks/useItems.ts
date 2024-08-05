@@ -1,63 +1,63 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import { INITIAL_QUERY } from "#/constants/hooks";
-import { Item, Query } from "#/interfaces";
-import { getItemList } from "#/apis/getItemList";
-import usePageSize from "./usePageSize";
+import { INITIAL_QUERY } from '#/constants/hooks'
+import { Item, Query } from '#/interfaces'
+import { getItemList } from '#/apis/getItemList'
+import usePageSize from './usePageSize'
 
 const useItems = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<Query>(INITIAL_QUERY);
-  const [bestItems, setBestItems] = useState<Item[]>([]);
-  const [items, setItems] = useState<Item[]>([]);
-  const [totalCount, setTotalCount] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [query, setQuery] = useState<Query>(INITIAL_QUERY)
+  const [bestItems, setBestItems] = useState<Item[]>([])
+  const [items, setItems] = useState<Item[]>([])
+  const [totalCount, setTotalCount] = useState<number>(0)
 
-  const { showItemNum } = usePageSize();
+  const { showItemNum } = usePageSize()
 
   const loadItems = async (reset?: boolean) => {
-    console.log("패치");
-    setIsLoading(true);
+    console.log('패치')
+    setIsLoading(true)
     try {
-      const resultData = await getItemList(query);
+      const resultData = await getItemList(query)
       if (reset) {
-        setItems(resultData.list);
+        setItems(resultData.list)
       } else {
-        setItems((prev) => [...prev, ...resultData.list]);
+        setItems(prev => [...prev, ...resultData.list])
       }
-      setTotalCount(resultData.totalCount);
-      setIsLoading(false);
+      setTotalCount(resultData.totalCount)
+      setIsLoading(false)
     } catch (err) {}
-  };
+  }
   useEffect(() => {
     const loadBestItems = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
       try {
         const resultData = await getItemList({
           page: 1,
           pageSize: 4,
-          orderBy: "favorite",
-        });
-        setBestItems(resultData.list);
-        setIsLoading(false);
+          orderBy: 'favorite',
+        })
+        setBestItems(resultData.list)
+        setIsLoading(false)
       } catch (err) {}
-    };
-    loadBestItems();
+    }
+    loadBestItems()
 
-    setQuery((prev) => ({
+    setQuery(prev => ({
       ...prev,
-      orderBy: "recent",
+      orderBy: 'recent',
       pageSize: showItemNum.selling,
-    }));
-  }, []);
+    }))
+  }, [])
 
   useEffect(() => {
-    loadItems(true);
-  }, [query.orderBy]);
+    loadItems(true)
+  }, [query.orderBy])
 
   useEffect(() => {
-    loadItems(true);
-  }, [query.page, showItemNum.selling]);
+    loadItems(true)
+  }, [query.page, showItemNum.selling])
 
-  return { items, totalCount, setQuery, isLoading, bestItems, showItemNum };
-};
-export default useItems;
+  return { items, totalCount, setQuery, isLoading, bestItems, showItemNum }
+}
+export default useItems

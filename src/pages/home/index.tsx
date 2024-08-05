@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import bgPanda from "#assets/images/bg-panda.png";
+import { Link } from 'react-router-dom'
+import bgPanda from '#assets/images/bg-panda.png'
 
 export default function Home() {
   return (
@@ -22,5 +22,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }

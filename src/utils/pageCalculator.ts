@@ -1,11 +1,11 @@
 export const pageCalculator = (
   totalCount: number,
-  pageSize: number,
+  pageSize: number
 ): number => {
   if (!totalCount) {
-    return 0;
+    return 0
   }
 
-  const pageCount: number = Math.ceil(totalCount / pageSize);
-  return pageCount;
-};
+  const pageCount: number = Math.ceil(totalCount / pageSize)
+  return pageCount
+}

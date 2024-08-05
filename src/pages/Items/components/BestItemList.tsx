@@ -1,6 +1,6 @@
-import { Item } from "#/constants/hooks";
+import { Item } from '#/constants/hooks'
 interface Props {
-  items: Item[];
+  items: Item[]
 }
 
 export default function BestItemList({ items }: Props) {
@@ -9,7 +9,7 @@ export default function BestItemList({ items }: Props) {
       <label className="text-xl font-bold">베스트 상품</label>
       <div className="flex justify-center gap-x-3">
         {items?.length > 0 &&
-          items.map((item) => (
+          items.map(item => (
             <div key={item.id} className="flex w-full flex-col gap-y-1.5">
               <img src={item.images[0]} className="w-full"></img>
               <p className="text-sm">{`${item.description} 팝니다`}</p>
@@ -21,5 +21,5 @@ export default function BestItemList({ items }: Props) {
           ))}
       </div>
     </div>
-  );
+  )
 }
