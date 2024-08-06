@@ -2,7 +2,7 @@ import useItems from '#/hooks/useItems'
 import { BestItemList, PageNavigator, SellingItemList } from '#pages'
 import { pageCalculator } from '#/utils'
 import { useEffect, useState } from 'react'
-import { Query } from '#/interfaces'
+import { Query } from '#/types/items'
 
 export default function Items() {
   const [pageNavNum, setPageNavNum] = useState<number>(0)
@@ -42,7 +42,9 @@ export default function Items() {
     const num = pageCalculator(totalCount, showItemNum.selling)
     setPageNavNum(num)
   }, [showItemNum.selling, totalCount])
-
+  if (isLoading) {
+    return <div>...Loading</div>
+  }
   return (
     <div className="flex-center m-container mt-10 flex-col gap-6 pt-[70px] mb-20">
       <BestItemList items={bestItems.slice(0, showItemNum.best)} />

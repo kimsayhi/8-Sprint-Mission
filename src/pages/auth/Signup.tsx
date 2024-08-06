@@ -58,7 +58,9 @@ export default function Signup() {
       <Input {...INITIAL_INPUTS.nickname} />
       <Input {...INITIAL_INPUTS.password} />
       <Input {...INITIAL_INPUTS.passwordRepeat} />
-      <Button onClick={onSubmitButton}>회원가입</Button>
+      <Button onClick={onSubmitButton} activeBtn={false}>
+        회원가입
+      </Button>
     </form>
   )
 }

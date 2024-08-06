@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Item, Query } from '#/interfaces'
+import { Item, Query } from '#/types/items'
 
 import icSort from '#assets/icons/ic_sort.svg'
 import icSortMobile from '#assets/icons/ic_sortmobile.svg'
@@ -45,7 +45,10 @@ export default function SellingItems({ items, setQuery }: Props) {
     <div className="flex w-full max-w-md flex-col gap-4 md:max-w-4xl lg:max-w-none">
       <div className="flex flex-wrap items-center justify-between gap-y-2 md:gap-3">
         <label className="text-xl font-bold md:flex-grow">전체 상품</label>
-        <Link to="" className="btn order-1 h-[42px] w-[133px] font-semibold">
+        <Link
+          to="/additem"
+          className="btn order-1 h-[42px] w-[133px] font-semibold"
+        >
           상품 등록하기
         </Link>
         <div className="order-1 flex basis-72 gap-1.5 rounded-xl bg-slate-100 px-4 py-[9px] md:order-none md:max-w-60">
@@ -72,7 +75,8 @@ export default function SellingItems({ items, setQuery }: Props) {
       <div className="flex flex-wrap justify-between gap-x-3 gap-y-5">
         {items.length > 0 &&
           items.map(item => (
-            <div
+            <Link
+              to={`${item.id}`}
               key={item.id}
               className="flex w-full max-w-[48%] flex-grow flex-col gap-y-1.5 md:max-w-[32%] lg:max-w-[19%]"
             >
@@ -82,7 +86,7 @@ export default function SellingItems({ items, setQuery }: Props) {
               <span className="text-sm text-gray-600">
                 🤍{item.favoriteCount}
               </span>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

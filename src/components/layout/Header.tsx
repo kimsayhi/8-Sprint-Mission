@@ -9,7 +9,9 @@ export default function Header() {
   return (
     <>
       {showHeader && (
-        <nav className={`fixed top-0 w-full border-b bg-white drop-shadow-sm`}>
+        <nav
+          className={`fixed top-0 w-full border-b bg-white drop-shadow-sm z-10`}
+        >
           <div className="mx-auto flex h-[70px] max-w-[1120px] items-center justify-between gap-2 px-4 py-2.5 md:gap-5 lg:gap-8">
             <Link to="/" className="flex gap-2.5">
               <img src={logoImg} className="hidden md:block" />

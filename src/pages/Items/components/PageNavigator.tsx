@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Query } from '#/interfaces'
+import { Query } from '#/types/items'
 
 interface Props {
   pageNavNum: number

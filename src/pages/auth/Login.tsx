@@ -1,8 +1,6 @@
-import { MouseEvent, useReducer } from 'react'
+import { MouseEvent } from 'react'
 import { useNavigate } from 'react-router'
-
-import { emailValidator, pwValidator } from '#/utils'
-
+import { InputChangeEvent } from '#/types/additem'
 import Button from '#components/ui/Button'
 import Input from '#components/ui/Input'
 
@@ -39,11 +37,12 @@ export default function Login() {
     e.preventDefault()
     navigate('/items')
   }
+  const onChangeInput = (e: InputChangeEvent) => {}
   return (
     <form className="w-full">
-      <Input {...INITIAL_INPUTS.email} />
-      <Input {...INITIAL_INPUTS.password} />
-      <Button onClick={onSubmitButton}>로그인</Button>
+      <Input {...INITIAL_INPUTS.email} onChange={onChangeInput} value="" />
+      <Input {...INITIAL_INPUTS.password} onChange={onChangeInput} value="" />
+      <Button onClick={onSubmitButton} activeBtn={false}>로그인</Button>
     </form>
   )
 }

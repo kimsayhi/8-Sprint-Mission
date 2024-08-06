@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import type { InputChangeEvent } from '#/types/additem'
+import { KeyboardEvent } from 'react'
 
 interface InputProps {
   label: string
@@ -6,6 +7,8 @@ interface InputProps {
   placeholder: string
   name: string
   value?: string
+  onChange?: (e: InputChangeEvent) => void
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void
 }
 
 export default function Input({
@@ -14,9 +17,9 @@ export default function Input({
   type,
   label,
   value,
+  onChange,
+  onKeyDown,
 }: InputProps) {
-  const inputRef = useRef<HTMLInputElement>(null)
-
   return (
     <div className="flex flex-col pb-6">
       <label className="pb-4 text-lg font-bold" htmlFor={name}>
@@ -29,7 +32,8 @@ export default function Input({
         name={name}
         id={name}
         value={value}
-        ref={inputRef}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
       ></input>
     </div>
   )

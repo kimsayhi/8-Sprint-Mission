@@ -1,4 +1,5 @@
-import { Item } from '#/constants/hooks'
+import { Item } from '#/types/items'
+import { Link } from 'react-router-dom'
 interface Props {
   items: Item[]
 }
@@ -10,14 +11,18 @@ export default function BestItemList({ items }: Props) {
       <div className="flex justify-center gap-x-3">
         {items?.length > 0 &&
           items.map(item => (
-            <div key={item.id} className="flex w-full flex-col gap-y-1.5">
+            <Link
+              to={`${item.id}`}
+              key={item.id}
+              className="flex w-full flex-col gap-y-1.5"
+            >
               <img src={item.images[0]} className="w-full"></img>
               <p className="text-sm">{`${item.description} 팝니다`}</p>
               <span className="font-bold">{`${item.price.toLocaleString()}원`}</span>
               <span className="text-sm text-gray-600">
                 🤍{item.favoriteCount}
               </span>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

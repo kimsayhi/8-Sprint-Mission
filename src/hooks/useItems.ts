@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { INITIAL_QUERY } from '#/constants/hooks'
-import { Item, Query } from '#/interfaces'
+import { Item, Query } from '#/types/items'
 import { getItemList } from '#/apis/getItemList'
 import usePageSize from './usePageSize'
 
